@@ -138,6 +138,7 @@ const GlobalConfig: VXETableConfigOptions = {
   icon: {
     // loading
     LOADING: iconPrefix + 'spinner roll vxe-loading--default-icon',
+    SETTING: iconPrefix + 'setting',
 
     // table
     TABLE_SORT_ASC: iconPrefix + 'caret-up',
@@ -230,7 +231,12 @@ const GlobalConfig: VXETableConfigOptions = {
       // perfect: false
     },
     toolbarConfig: {
-      enabled: true
+      enabled: true,
+      custom: {
+        immediate: true,
+        showFooter: false,
+        allowFixed: true
+      }
       // perfect: false
     },
     proxyConfig: {

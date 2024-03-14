@@ -583,11 +583,10 @@ export default defineComponent({
         ref: refCustomWrapper
       }, [
         h(resolveComponent('vxe-button') as ComponentOptions, {
-          circle: true,
-          icon: customOpts.icon || GlobalConfig.icon.TOOLBAR_TOOLS_CUSTOM,
+          icon: customOpts.icon || GlobalConfig.icon.SETTING,
           title: GlobalConfig.i18n('vxe.toolbar.custom'),
           ...customBtnOns
-        }),
+        }, { default: () => GlobalConfig.i18n('vxe.toolbar.buttonLabel') }),
         h('div', {
           class: 'vxe-custom--option-wrapper'
         }, [
@@ -689,14 +688,12 @@ export default defineComponent({
         }]
       }, [
         h('div', {
-          class: 'vxe-buttons--wrapper'
-        }, renderBtns()),
-        h('div', {
           class: 'vxe-tools--wrapper'
         }, renderRightTools()),
         h('div', {
           class: 'vxe-tools--operate'
         }, [
+          custom ? renderCustoms() : createCommentVNode(),
           props.import ? h(resolveComponent('vxe-button') as ComponentOptions, {
             circle: true,
             icon: importOpts.icon || GlobalConfig.icon.TOOLBAR_TOOLS_IMPORT,
@@ -722,13 +719,16 @@ export default defineComponent({
             onClick: refreshEvent
           }) : createCommentVNode(),
           zoom && $xegrid ? h(resolveComponent('vxe-button') as ComponentOptions, {
+            style: { marginRight: '0.3em' },
             circle: true,
             icon: $xegrid.isMaximized() ? (zoomOpts.iconOut || GlobalConfig.icon.TOOLBAR_TOOLS_MINIMIZE) : (zoomOpts.iconIn || GlobalConfig.icon.TOOLBAR_TOOLS_FULLSCREEN),
             title: GlobalConfig.i18n(`vxe.toolbar.zoom${$xegrid.isMaximized() ? 'Out' : 'In'}`),
             onClick: zoomEvent
-          }) : createCommentVNode(),
-          custom ? renderCustoms() : createCommentVNode()
-        ])
+          }) : createCommentVNode()
+        ]),
+        h('div', {
+          class: 'vxe-buttons--wrapper'
+        }, renderBtns())
       ])
     }
 

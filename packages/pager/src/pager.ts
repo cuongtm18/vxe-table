@@ -388,7 +388,7 @@ export default defineComponent({
       return h(resolveComponent('vxe-select') as ComponentOptions, {
         class: 'vxe-pager--sizes',
         modelValue: props.pageSize,
-        placement: 'top',
+        // placement: 'top',
         transfer: props.transfer,
         options: sizeList,
         onChange: pageSizeEvent

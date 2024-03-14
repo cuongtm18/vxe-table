@@ -238,7 +238,7 @@ $btnThemeList: (
 .vxe-button {
   &+.vxe-button.type--button,
   &+.vxe-button--dropdown {
-    margin-left: 12px;
+    margin-left: 0.4em;
   }
 }
 .vxe-button--loading-icon,
@@ -256,7 +256,7 @@ $btnThemeList: (
   position: relative;
   &+.vxe-button.type--button,
   &+.vxe-button--dropdown {
-    margin-left: 12px;
+    margin-left: 0.4em;
   }
   & > .vxe-button {
     &.type--button {

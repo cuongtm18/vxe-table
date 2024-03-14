@@ -520,7 +520,7 @@ export default defineComponent({
       return []
     }
 
-    const defaultLayouts = ['Form', 'Toolbar', 'Top', 'Table', 'Bottom', 'Pager']
+    const defaultLayouts = ['Form', 'Top', 'Pager', 'Table', 'Bottom']
 
     const renderLayout = () => {
       const { layouts } = props
@@ -531,9 +531,9 @@ export default defineComponent({
           case 'Form':
             vns.push(renderForms())
             break
-          case 'Toolbar':
-            vns.push(renderToolbars())
-            break
+          // case 'Toolbar':
+          //   vns.push(renderToolbars())
+          //   break
           case 'Top':
             vns.push(renderTops())
             break
@@ -644,12 +644,21 @@ export default defineComponent({
             }
           }
           slotVNs.push(
-            h(resolveComponent('vxe-pager') as ComponentOptions, {
-              ref: refPager,
-              ...pagerOpts,
-              ...(proxyConfig && isEnableConf(proxyOpts) ? reactData.tablePage : {}),
-              onPageChange: pageChangeEvent
-            }, pagerSlots)
+            h('div', {
+              style: {
+                display: 'flex',
+                'justify-content': 'space-between',
+                'align-items': 'center'
+              }
+            }, [
+              renderToolbars(),
+              h(resolveComponent('vxe-pager') as ComponentOptions, {
+                ref: refPager,
+                ...pagerOpts,
+                ...(proxyConfig && isEnableConf(proxyOpts) ? reactData.tablePage : {}),
+                onPageChange: pageChangeEvent
+              }, pagerSlots)
+            ])
           )
         }
         restVNs.push(
@@ -1117,12 +1126,12 @@ export default defineComponent({
         const { isZMax } = reactData
         const el = refElem.value
         const formWrapper = refFormWrapper.value
-        const toolbarWrapper = refToolbarWrapper.value
+        // const toolbarWrapper = refToolbarWrapper.value
         const topWrapper = refTopWrapper.value
         const bottomWrapper = refBottomWrapper.value
         const pagerWrapper = refPagerWrapper.value
         const parentPaddingSize = isZMax || height !== 'auto' ? 0 : getPaddingTopBottomSize(el.parentNode as HTMLElement)
-        return parentPaddingSize + getPaddingTopBottomSize(el) + getOffsetHeight(formWrapper) + getOffsetHeight(toolbarWrapper) + getOffsetHeight(topWrapper) + getOffsetHeight(bottomWrapper) + getOffsetHeight(pagerWrapper)
+        return parentPaddingSize + getPaddingTopBottomSize(el) + getOffsetHeight(formWrapper) +/* getOffsetHeight(toolbarWrapper) + */ getOffsetHeight(topWrapper) + getOffsetHeight(bottomWrapper) + getOffsetHeight(pagerWrapper)
       },
       getParentHeight () {
         const el = refElem.value

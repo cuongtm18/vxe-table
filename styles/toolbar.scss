@@ -38,11 +38,11 @@
     }
   }
   .vxe-buttons--wrapper {
-    flex-grow: 1;
+    //flex-grow: 1;
     & > .vxe-button+.vxe-button--item,
     & > .vxe-button--item+.vxe-button,
     & > .vxe-button--item+.vxe-button--item {
-      margin-left: 0.8em;
+      margin-right: 0.4em;
     }
     & > .vxe-button--item {
       display: inline-block;
@@ -52,7 +52,7 @@
     & > .vxe-button+.vxe-tool--item,
     & > .vxe-tool--item+.vxe-button,
     & > .vxe-tool--item+.vxe-tool--item {
-      margin-left: 0.8em;
+      margin-left: 0.4em;
     }
     & > .vxe-tool--item {
       display: inline-block;
@@ -80,11 +80,11 @@
   }
   .vxe-custom--wrapper {
     position: relative;
-    margin-left: 0.8em;
+    margin-right: 0.4em;
     &.is--active {
       & > .vxe-button {
         background-color: var(--vxe-toolbar-custom-active-background-color);
-        border-radius: 50%;
+        //border-radius: 50%;
       }
       .vxe-custom--option-wrapper {
         display: block;
@@ -94,7 +94,7 @@
   .vxe-custom--option-wrapper {
     display: none;
     position: absolute;
-    right: 2px;
+    //right: 2px;
     text-align: left;
     background-color: var(--vxe-toolbar-panel-background-color);
     z-index: 19;
