@@ -233,9 +233,9 @@ const GlobalConfig: VXETableConfigOptions = {
     toolbarConfig: {
       enabled: true,
       custom: {
-        immediate: true,
+        immediate: false,
         showFooter: false,
-        allowFixed: true
+        allowFixed: false
       }
       // perfect: false
     },
@@ -325,8 +325,9 @@ const GlobalConfig: VXETableConfigOptions = {
     //   types: ['csv', 'html', 'xml', 'txt']
     // },
     custom: {
-      allowFixed: true,
-      showFooter: true
+      immediate: true,
+      allowFixed: false,
+      showFooter: false
     }
     // buttons: []
   },

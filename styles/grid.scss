@@ -34,6 +34,12 @@
   .vxe-grid--bottom-wrapper  {
     position: relative;
   }
+
+  &.is--hidden {
+    .vxe-grid--pager-wrapper, .vxe-table, .vxe-grid--top-wrapper, .vxe-grid--bottom-wrapper {
+      display: none;
+    }
+  }
 }
 
 .vxe-grid {

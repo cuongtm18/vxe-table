@@ -8,7 +8,13 @@
       由 <grid-api-link name="vxe-grid"/> 代理数据转换，只需要配置好数据源即可；非常简单就可以渲染一个表格，从重复写冗余的代码中解放出来
     </p>
 
-    <vxe-grid ref='xGrid' v-bind="gridOptions"></vxe-grid>
+    <vxe-button @click="hide">Toggle Table</vxe-button>
+
+    <vxe-grid ref='xGrid' v-bind="gridOptions">
+      <template #top>1</template>
+      <template #bottom>2</template>
+      <template #buttons><vxe-button @click="hide">hehe</vxe-button></template>
+    </vxe-grid>
 
     <p class="demo-code">{{ $t('app.body.button.showCode') }}</p>
 
@@ -28,6 +34,14 @@ import XEUtils from 'xe-utils'
 export default defineComponent({
   setup () {
     const xGrid = ref({} as VxeGridInstance)
+
+    const hide = () => {
+      if (xGrid.value?.isHidden()) show()
+      else xGrid.value?.hideTable()
+    }
+    const show = () => {
+      xGrid.value?.showTable()
+    }
 
     const postMock = (url:string, body: any): Promise<any> => {
       return new Promise((resolve) => {
@@ -306,6 +320,7 @@ export default defineComponent({
     })
 
     return {
+      hide,
       xGrid,
       gridOptions,
       demoCodes: [

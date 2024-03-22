@@ -1,17 +1,61 @@
-import { defineComponent, h, PropType, ref, Ref, computed, provide, getCurrentInstance, resolveComponent, ComponentOptions, reactive, onUnmounted, watch, nextTick, VNode, ComponentPublicInstance, onMounted } from 'vue'
+import {
+  ComponentOptions,
+  ComponentPublicInstance,
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  h,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  PropType,
+  provide,
+  reactive,
+  ref,
+  Ref,
+  resolveComponent,
+  VNode,
+  watch
+} from 'vue'
 import XEUtils from 'xe-utils'
-import { getLastZIndex, nextZIndex, isEnableConf } from '../../tools/utils'
-import { getOffsetHeight, getPaddingTopBottomSize, getDomNode } from '../../tools/dom'
+import { getLastZIndex, isEnableConf, nextZIndex } from '../../tools/utils'
+import { getDomNode, getOffsetHeight, getPaddingTopBottomSize } from '../../tools/dom'
 import { errLog } from '../../tools/log'
 import GlobalConfig from '../../v-x-e-table/src/conf'
 import { VXETable } from '../../v-x-e-table'
 import tableComponentProps from '../../table/src/props'
 import tableComponentEmits from '../../table/src/emits'
 import { useSize } from '../../hooks/size'
-import { GlobalEvent, hasEventKey, EVENT_KEYS } from '../../tools/event'
+import { EVENT_KEYS, GlobalEvent, hasEventKey } from '../../tools/event'
 import { getSlotVNs } from '../../tools/vn'
 
-import { TableMethods, VxeGridConstructor, VxeGridEmits, GridReactData, VxeGridPropTypes, VxeToolbarPropTypes, GridMethods, GridPrivateMethods, VxeGridPrivateComputed, VxeGridPrivateMethods, VxePagerInstance, VxeToolbarInstance, GridPrivateRef, VxeFormInstance, VxeTableProps, VxeTableConstructor, VxeTableMethods, VxeTablePrivateMethods, VxeTableEvents, VxePagerEvents, VxeFormEvents, VxeTableDefines, VxeTableEventProps, VxeFormItemProps, VxeGridProps } from '../../../types/all'
+import {
+  GridMethods,
+  GridPrivateMethods,
+  GridPrivateRef,
+  GridReactData,
+  TableMethods,
+  VxeFormEvents,
+  VxeFormInstance,
+  VxeFormItemProps,
+  VxeGridConstructor,
+  VxeGridEmits,
+  VxeGridPrivateComputed,
+  VxeGridPrivateMethods,
+  VxeGridProps,
+  VxeGridPropTypes,
+  VxePagerEvents,
+  VxePagerInstance,
+  VxeTableConstructor,
+  VxeTableDefines,
+  VxeTableEventProps,
+  VxeTableEvents,
+  VxeTableMethods,
+  VxeTablePrivateMethods,
+  VxeTableProps,
+  VxeToolbarInstance,
+  VxeToolbarPropTypes
+} from '../../../types/all'
 
 const tableComponentPropKeys = Object.keys(tableComponentProps as any)
 
@@ -69,7 +113,8 @@ export default defineComponent({
         total: 0,
         pageSize: GlobalConfig.pager.pageSize || 10,
         currentPage: 1
-      }
+      },
+      hide: false
     } as GridReactData<any>)
 
     const refElem = ref() as Ref<HTMLDivElement>
@@ -383,7 +428,7 @@ export default defineComponent({
     }
 
     const getFuncSlot = (optSlots: any, slotKey: string) => {
-      const funcSlot = optSlots[slotKey]
+      const funcSlot = optSlots?.[slotKey]
       if (funcSlot) {
         if (XEUtils.isString(funcSlot)) {
           if (slots[funcSlot]) {
@@ -467,17 +512,17 @@ export default defineComponent({
       const { toolbarConfig } = props
       const toolbarOpts = computeToolbarOpts.value
       const restVNs = []
-      if ((toolbarConfig && isEnableConf(toolbarOpts)) || slots.toolbar) {
+      if ((toolbarConfig && isEnableConf(toolbarOpts)) || slots.toolbar || slots.buttons) {
         let slotVNs = []
         if (slots.toolbar) {
-          slotVNs = slots.toolbar({ $grid: $xegrid })
+          slotVNs = slots?.toolbar({ $grid: $xegrid })
         } else {
           const toolbarOptSlots = toolbarOpts.slots
           let buttonsSlot: any
           let toolsSlot: any
           const toolbarSlots: { [key: string]: () => VNode[] } = {}
-          if (toolbarOptSlots) {
-            buttonsSlot = getFuncSlot(toolbarOptSlots, 'buttons')
+          if (toolbarOptSlots || slots.buttons) {
+            buttonsSlot = getFuncSlot(toolbarOptSlots, 'buttons') || getFuncSlot(slots, 'buttons')
             toolsSlot = getFuncSlot(toolbarOptSlots, 'tools')
             if (buttonsSlot) {
               toolbarSlots.buttons = buttonsSlot
@@ -1027,6 +1072,21 @@ export default defineComponent({
         }
         return gridMethods.maximize()
       },
+      isHidden () {
+        return reactData.hide
+      },
+      hideTable () {
+        nextTick().then(() => {
+          reactData.hide = true
+        })
+        return reactData.hide
+      },
+      showTable () {
+        nextTick().then(() => {
+          reactData.hide = false
+        })
+        return reactData.hide
+      },
       isMaximized () {
         return reactData.isZMax
       },
@@ -1241,7 +1301,8 @@ export default defineComponent({
           'is--animat': !!props.animat,
           'is--round': props.round,
           'is--maximize': reactData.isZMax,
-          'is--loading': props.loading || reactData.tableLoading
+          'is--loading': props.loading || reactData.tableLoading,
+          'is--hidden': reactData.hide
         }],
         style: styles
       }, renderLayout())

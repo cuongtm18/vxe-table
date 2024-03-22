@@ -216,6 +216,9 @@ export default defineComponent({
       })
       customStore.isAll = isAll
       checkCustomStatus()
+      if (computeCustomOpts.value?.immediate) {
+        handleTableCustom()
+      }
     }
 
     const handleGlobalMousedownEvent = (evnt: MouseEvent) => {

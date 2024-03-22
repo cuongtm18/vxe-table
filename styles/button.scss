@@ -59,10 +59,9 @@ $btnThemeList: (
   outline: 0;
   font-size: var(--vxe-font-size);
   max-width: var(--vxe-button-max-width);
-  line-height: 1.5;
+  line-height: 1;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   white-space: nowrap;
   user-select: none;
   appearance: none;
@@ -142,12 +141,10 @@ $btnThemeList: (
       padding: 0 1em;
     }
     &:not(.is--disabled) {
-      &:hover {
-        color: var(--vxe-primary-lighten-color);
-      }
       &:focus {
         border-color: var(--vxe-primary-color);
       }
+      &:hover,
       &:active {
         color: var(--vxe-primary-darken-color);
         border-color: var(--vxe-primary-darken-color);

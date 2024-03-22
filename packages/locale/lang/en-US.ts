@@ -267,7 +267,8 @@ export default {
       customRestore: 'Reset',
       fixedLeft: 'Fixed on the left side',
       fixedRight: 'Fixed on the right side',
-      cancelfixed: 'Unfixed'
+      cancelfixed: 'Unfixed',
+      buttonLabel: 'Chọn chỉ tiêu'
     },
     input: {
       date: {

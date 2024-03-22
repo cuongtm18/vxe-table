@@ -63,6 +63,7 @@ export interface GridReactData<D = VxeTableDataRow> {
     pageSize: number
     currentPage: number
   }
+  hide: boolean
 }
 
 export type VxeGridEmits = [
@@ -101,6 +102,9 @@ export interface GridPublicMethods<D = VxeTableDataRow> {
    * 切换表格最大化/还原
    */
   zoom(): Promise<boolean>
+  isHidden(): boolean
+  hideTable(): any
+  showTable(): any
   /**
    * 判断是否最大化显示
    */
@@ -551,6 +555,11 @@ export interface VxeGridSlots<D = VxeTableDataRow> {
    * 自定义工具栏模板
    */
   toolbar?(params: {
+    $table: VxeTableConstructor<D>
+    $grid: VxeGridConstructor<D> | null | undefined
+  }): any
+
+  buttons?(params: {
     $table: VxeTableConstructor<D>
     $grid: VxeGridConstructor<D> | null | undefined
   }): any

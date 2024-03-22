@@ -426,6 +426,8 @@ export default defineComponent({
       reactData.searchValue = ''
       reactData.searchLoading = false
       reactData.visiblePanel = false
+      reactData.isActivated = false
+      refInput.value.reactData.isActivated = false
       hidePanelTimeout = window.setTimeout(() => {
         reactData.animatVisible = false
       }, 350)
@@ -603,6 +605,7 @@ export default defineComponent({
             evnt.preventDefault()
             evnt.stopPropagation()
             changeOptionEvent(evnt, currentValue, currentOption)
+            hideOptionPanel()
           } else if (isUpArrow || isDwArrow) {
             evnt.preventDefault()
             let { firstOption, offsetOption } = findOffsetOption(currentValue, isUpArrow)

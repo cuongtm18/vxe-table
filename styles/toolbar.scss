@@ -84,6 +84,7 @@
     &.is--active {
       & > .vxe-button {
         background-color: var(--vxe-toolbar-custom-active-background-color);
+        color: var(--vxe-primary-color)
         //border-radius: 50%;
       }
       .vxe-custom--option-wrapper {
