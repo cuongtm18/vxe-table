@@ -696,7 +696,7 @@ export default defineComponent({
                 'align-items': 'center'
               }
             }, [
-              renderToolbars(),
+              renderToolbars()?.length ? renderToolbars() : h('div', { style: { visibility: 'hidden' } }),
               h(resolveComponent('vxe-pager') as ComponentOptions, {
                 ref: refPager,
                 ...pagerOpts,
